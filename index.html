@@ -3,275 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天安中醫 - 10款名片提案</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <title>智慧進銷存 Excel 預覽</title>
     <style>
-        body { background: #333; font-family: 'Noto Sans TC', sans-serif; padding: 40px; color: #fff; }
-        h1 { text-align: center; margin-bottom: 40px; letter-spacing: 5px; color: #D4AF37; }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .card-wrapper { text-align: center; }
-        .card-name { margin-bottom: 10px; color: #aaa; font-size: 14px; }
-
-        .card {
-            width: 320px; height: 192px; /* 90x54 ratio */
-            position: relative;
-            margin: 0 auto;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        body { font-family: 'Segoe UI', sans-serif; background: #217346; padding: 20px; display: flex; justify-content: center; }
+        .excel-window {
+            width: 1000px;
             background: white;
-            color: #333;
-            transition: transform 0.3s;
-        }
-        .card:hover { transform: scale(1.02); z-index: 10; }
-        
-        .card.vertical { width: 192px; height: 320px; }
-
-        /* --- STYLES --- */
-
-        /* 1. Modern Zen (Original Refined) */
-        .style-1 { background: #FDFBF7; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 5px solid #2C5F2D; }
-        .style-1 .logo { font-family: 'Noto Serif TC'; font-size: 32px; color: #2C5F2D; letter-spacing: 5px; }
-        .style-1 .sub { color: #977B3F; font-size: 10px; letter-spacing: 2px; }
-
-        /* 2. Dark Luxury (Black & Gold) */
-        .style-2 { background: #1a1a1a; color: #D4AF37; display: flex; justify-content: space-between; padding: 20px; box-sizing: border-box; }
-        .style-2::before { content:''; position:absolute; top:0; right:0; width: 100px; height: 100%; background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.1)); }
-        .style-2 .logo { font-size: 24px; border: 2px solid #D4AF37; padding: 5px 10px; display: inline-block; }
-        .style-2 .name { margin-top: auto; font-size: 18px; }
-
-        /* 3. Traditional Ink (Calligraphy) */
-        .style-3 { background: url('https://www.transparenttextures.com/patterns/rice-paper.png'), #fff; }
-        .style-3 .ink { font-family: 'Ma Shan Zheng', cursive; font-size: 60px; position: absolute; right: 20px; bottom: 20px; opacity: 0.8; color: #000; }
-        .style-3 .info { padding: 20px; font-family: 'Noto Serif TC'; border-left: 3px solid #cc0000; height: 60%; margin-top: 20px; margin-left: 20px; }
-
-        /* 4. Professional Medical (Clean Blue/Teal) */
-        .style-4 { background: white; border-top: 10px solid #008080; padding: 25px; }
-        .style-4 .logo { color: #008080; font-weight: bold; font-size: 22px; display: flex; align-items: center; gap: 10px; }
-        .style-4 .logo::before { content: '+'; background: #008080; color: white; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-        .style-4 .details { font-size: 10px; color: #555; margin-top: 20px; line-height: 1.6; }
-
-        /* 5. Vertical Red Seal (Vertical) */
-        .style-5 { background: #f4f4f4; writing-mode: vertical-rl; padding: 20px; align-items: center; display: flex; }
-        .style-5 .seal { border: 2px solid #b22222; color: #b22222; padding: 5px; font-family: 'Ma Shan Zheng'; border-radius: 4px; font-size: 18px; margin-bottom: 20px; }
-        .style-5 .name { font-size: 24px; letter-spacing: 5px; color: #333; font-family: 'Noto Serif TC'; }
-
-        /* 6. Kraft Paper (Organic) */
-        .style-6 { background: #d2b48c; color: #3e2723; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .style-6 .border { border: 2px dashed #3e2723; width: 90%; height: 85%; display: flex; justify-content: center; align-items: center; flex-direction: column; }
-        .style-6 .icon { font-size: 30px; margin-bottom: 10px; }
-
-        /* 7. Geometric Modern */
-        .style-7 { background: #fff; }
-        .style-7 .shape { position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: #2C5F2D; border-radius: 50%; }
-        .style-7 .content { position: absolute; bottom: 20px; left: 20px; }
-        .style-7 .name { font-weight: bold; font-size: 20px; color: #2C5F2D; }
-
-        /* 8. Minimalist Typographic */
-        .style-8 { background: #fff; display: flex; justify-content: center; align-items: center; }
-        .style-8 .big-text { font-size: 80px; font-weight: 900; color: #f0f0f0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; text-align: center; }
-        .style-8 .real-text { position: relative; z-index: 2; font-weight: bold; font-size: 24px; letter-spacing: 10px; }
-
-        /* 9. Dark Slate (Stone texture) */
-        .style-9 { background: #2f3542; color: #fff; display: flex; align-items: center; padding-left: 40px; }
-        .style-9 .line { height: 60px; width: 2px; background: #2ed573; margin-right: 20px; }
-        .style-9 h3 { margin: 0; font-weight: 300; letter-spacing: 2px; }
-
-        /* 10. Translucent / Frosted (Simulated) */
-        .style-10 { background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4)); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); display: flex; justify-content: center; align-items: center; }
-        .style-10 .content { text-align: center; color: #000; }
-        .style-10 .logo { font-size: 30px; font-weight: bold; opacity: 0.6; }
-
-        /* 12. The Redemption (Classic Painting) */
-        .style-12 {
-            background: #f0f5f0;
-            background-image: url('https://img.freepik.com/free-vector/hand-drawn-bamboo-background_23-2149567332.jpg'); 
-            /* Note: Using a placeholder URL that looks like chinese painting */
-            background-size: cover;
-            background-position: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            min-height: 600px;
             display: flex;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            flex-direction: column;
         }
-        .style-12::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.85); /* Fade the image */
-        }
-        .style-12 .content-layer {
-            position: relative; z-index: 2; width: 100%; height: 100%;
-            display: flex; justify-content: space-between; padding: 25px; box-sizing: border-box;
-        }
-        .style-12 .left {
-            display: flex; flex-direction: column; justify-content: center;
-            border-right: 1px solid #88a; 
-            padding-right: 20px;
-            color: #2f4f2f; /* Sage Green */
-        }
-        .style-12 .title {
-            font-family: 'Ma Shan Zheng'; font-size: 36px; writing-mode: vertical-rl;
-            letter-spacing: 5px; margin-right: 10px;
-        }
-        .style-12 .sub-title {
-            font-family: 'Noto Serif TC'; font-size: 10px; writing-mode: vertical-rl;
-            letter-spacing: 2px; color: #556b2f;
-        }
+        .ribbon { background: #f3f3f3; padding: 10px; border-bottom: 1px solid #ddd; display: flex; gap: 20px; }
+        .ribbon-item { color: #444; font-size: 14px; cursor: pointer; }
+        .ribbon-item.active { color: #217346; font-weight: bold; border-bottom: 2px solid #217346; }
         
-        .style-12 .right {
-            flex-grow: 1; padding-left: 20px;
-            display: flex; flex-direction: column; justify-content: center;
-            font-family: 'Noto Serif TC'; color: #333;
+        .formula-bar { background: white; padding: 5px 10px; border-bottom: 1px solid #ddd; display: flex; align-items: center; color: #555; }
+        .fx { font-weight: bold; color: #999; margin-right: 10px; }
+        .formula-input { flex-grow: 1; border: none; outline: none; font-family: monospace; }
+
+        .sheet { padding: 20px; background: #fff; flex-grow: 1; }
+        
+        /* Dashboard Area */
+        .dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .card { padding: 15px; border-radius: 8px; color: white; text-align: center; }
+        .card h3 { margin: 0; font-size: 14px; opacity: 0.9; }
+        .card .value { font-size: 28px; font-weight: bold; margin-top: 5px; }
+        
+        .bg-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .bg-green { background: linear-gradient(135deg, #10b981, #047857); }
+        .bg-red { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+        .bg-orange { background: linear-gradient(135deg, #f59e0b, #b45309); }
+
+        /* Data Table */
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: #f8f9fa; text-align: left; padding: 12px; border-bottom: 2px solid #ddd; color: #666; }
+        td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+        tr:hover { background: #f1f5f9; }
+        
+        .status-ok { color: #10b981; font-weight: bold; background: #d1fae5; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+        .status-low { color: #ef4444; font-weight: bold; background: #fee2e2; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+
+        /* Tabs Footer */
+        .tabs { background: #f3f3f3; padding: 5px 10px; display: flex; gap: 5px; border-top: 1px solid #ddd; }
+        .tab { padding: 5px 15px; background: white; border-radius: 4px 4px 0 0; color: #217346; font-weight: bold; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); cursor: pointer; }
+        .tab.inactive { background: transparent; color: #666; box-shadow: none; }
+
+        /* Interactive Elements */
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; color: #666; font-weight: bold; }
+        .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; box-sizing: border-box; }
+        .btn-action { background: #217346; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+        .btn-action:hover { background: #1e6b41; }
+
+        /* Container for Download Button */
+        .download-container {
+            text-align:center; margin-bottom:20px;
         }
-        .style-12 .doc-name { font-size: 20px; font-weight: bold; margin-bottom: 5px; color: #2f4f2f; }
-        .style-12 .doc-title { font-size: 10px; color: #666; margin-bottom: 20px; }
-        .style-12 .info-row { font-size: 9px; margin-bottom: 5px; display: flex; align-items: center; color: #555; }
-        .style-12 .stamp-red {
-            position: absolute; bottom: 20px; right: 20px;
-            width: 30px; height: 30px; border: 2px solid #a00; color: #a00;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-family: 'Ma Shan Zheng';
+        .download-btn {
+            background:#d00; color:white; padding:15px 30px; text-decoration:none; 
+            font-weight:bold; border-radius:5px; font-size:20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: inline-block;
         }
 
     </style>
 </head>
 <body>
 
-    <div style="text-align:center; margin-bottom:40px;">
-        <a href="Premium_Inventory.xlsx" style="background:#217346; color:white; padding:15px 30px; text-decoration:none; font-weight:bold; border-radius:5px; font-size:20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-            📥 下載【旗艦版】進銷存 Excel (Premium_Inventory.xlsx)
+    <div class="download-container">
+        <a href="Premium_Inventory.xlsx" class="download-btn">
+            📥 下載 Excel 旗艦版 (Premium_Inventory.xlsx)
         </a>
     </div>
 
-    <h1>天安中醫 - 10款風格提案 (+2 雪恥版)</h1>
+    <div class="excel-window">
+        <!-- Ribbon -->
+        <div class="ribbon">
+            <div class="ribbon-item">檔案</div>
+            <div class="ribbon-item active">常用</div>
+            <div class="ribbon-item">插入</div>
+            <div class="ribbon-item">版面配置</div>
+            <div class="ribbon-item">公式</div>
+            <div class="ribbon-item">資料</div>
+        </div>
 
-    <div class="gallery">
-        
-        <!-- The Redemption -->
-        <div class="card-wrapper" style="grid-column: 1 / -1;">
-            <div class="card-name" style="color:#2f4f2f; font-size:18px;">★ 12. 漢方竹韻 (雪恥之作)</div>
-            <div class="card style-12">
-                <div class="content-layer">
-                    <div class="left">
-                        <div class="sub-title">Classic TCM Clinic</div>
-                        <div class="title">天安中醫</div>
-                    </div>
-                    <div class="right">
-                        <div class="doc-name">李 董 <span style="font-size:12px;font-weight:normal">醫師</span></div>
-                        <div class="doc-title">院長 / 內科調理專家</div>
-                        
-                        <div class="info-row">📞 02-2345-6789</div>
-                        <div class="info-row">📍 台北市信義區...</div>
-                        <div class="info-row">🕒 09:00 - 21:00</div>
-                    </div>
-                    <div class="stamp-red">安</div>
+        <!-- Formula Bar -->
+        <div class="formula-bar">
+            <span class="fx">fx</span>
+            <input type="text" class="formula-input" id="formula-display" value="=SUM(E2:E100)" readonly>
+        </div>
+
+        <!-- DASHBOARD TAB -->
+        <div id="tab-dashboard" class="sheet content-section active">
+            <h2 style="color:#217346; margin-top:0;">📊 工廠戰情室 - 庫存總覽 (網頁試用版)</h2>
+            
+            <div class="dashboard">
+                <div class="card bg-blue">
+                    <h3>總庫存品項</h3>
+                    <div class="value" id="val-items">5</div>
+                </div>
+                <div class="card bg-green">
+                    <h3>本月入庫數</h3>
+                    <div class="value" id="val-in">850</div>
+                </div>
+                <div class="card bg-orange">
+                    <h3>本月出庫數</h3>
+                    <div class="value" id="val-out">620</div>
+                </div>
+                <div class="card bg-red">
+                    <h3>⚠️ 缺貨預警</h3>
+                    <div class="value" id="val-alert">1</div>
                 </div>
             </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>料號</th>
+                        <th>品名</th>
+                        <th>規格</th>
+                        <th>安全庫存</th>
+                        <th>目前庫存</th>
+                        <th>狀態</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-table">
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
         </div>
 
-        <div class="card-wrapper" style="opacity: 0.5;">
-            <div class="card-name">★ 11. 旗艦隱藏版 (新中式灰階)</div>
-            <div class="card-name">1. 現代禪風 (經典款)</div>
-            <div class="card style-1">
-                <div class="logo">天安中醫</div>
-                <div class="sub">TIAN AN CLINIC</div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="card-name">2. 黑金奢華 (高端客群)</div>
-            <div class="card style-2">
-                <div class="logo">天安</div>
-                <div class="name">李董<br><span style="font-size:10px">院長</span></div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="card-name">3. 水墨書法 (傳統底蘊)</div>
-            <div class="card style-3">
-                <div class="ink">天安</div>
-                <div class="info">
-                    <strong>李 董</strong><br>
-                    <small>中醫師</small>
+        <!-- INBOUND TAB -->
+        <div id="tab-inbound" class="sheet content-section">
+            <h2 style="color:#217346;">📥 入庫作業單</h2>
+            <div style="max-width: 400px; background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 0 auto;">
+                <div class="input-group">
+                    <label>選擇料號</label>
+                    <select id="in-sku">
+                        <option value="A-001">A-001 鍍鋅鋼板</option>
+                        <option value="B-105">B-105 工業用螺絲</option>
+                        <option value="C-099">C-099 防護手套</option>
+                        <option value="D-302">D-302 切削油</option>
+                        <option value="E-001">E-001 包裝紙箱</option>
+                    </select>
                 </div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="card-name">4. 專業醫療 (信任感)</div>
-            <div class="card style-4">
-                <div class="logo">天安診所</div>
-                <div class="details">
-                    內科調理 · 健康減重<br>
-                    02-2345-6789
+                <div class="input-group">
+                    <label>入庫數量</label>
+                    <input type="number" id="in-qty" placeholder="輸入數量...">
                 </div>
+                <button class="btn-action" onclick="handleInbound()">確認入庫</button>
             </div>
         </div>
 
-        <div class="card-wrapper">
-            <div class="card-name">5. 復古直式 (文人氣息)</div>
-            <div class="card vertical style-5">
-                <div class="seal">天安</div>
-                <div class="name">李董 醫師</div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="card-name">6. 牛皮紙質 (漢方草本)</div>
-            <div class="card style-6">
-                <div class="border">
-                    <div class="icon">🌿</div>
-                    <div style="font-weight:bold; letter-spacing:3px;">天安漢方</div>
+        <!-- OUTBOUND TAB -->
+        <div id="tab-outbound" class="sheet content-section">
+            <h2 style="color:#d9534f;">📤 出庫作業單</h2>
+            <div style="max-width: 400px; background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 0 auto;">
+                <div class="input-group">
+                    <label>選擇料號</label>
+                    <select id="out-sku">
+                        <option value="A-001">A-001 鍍鋅鋼板</option>
+                        <option value="B-105">B-105 工業用螺絲</option>
+                        <option value="C-099">C-099 防護手套</option>
+                        <option value="D-302">D-302 切削油</option>
+                        <option value="E-001">E-001 包裝紙箱</option>
+                    </select>
                 </div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="card-name">7. 幾何現代 (年輕化)</div>
-            <div class="card style-7">
-                <div class="shape"></div>
-                <div class="content">
-                    <div class="name">TIAN AN</div>
-                    <div style="color:#aaa; font-size:12px;">TCM Clinic</div>
+                <div class="input-group">
+                    <label>出庫數量</label>
+                    <input type="number" id="out-qty" placeholder="輸入數量...">
                 </div>
+                <button class="btn-action" style="background:#d9534f;" onclick="handleOutbound()">確認出庫</button>
             </div>
         </div>
 
-        <div class="card-wrapper">
-            <div class="card-name">8. 極簡留白 (設計師款)</div>
-            <div class="card style-8">
-                <div class="big-text">TIAN</div>
-                <div class="real-text">天安</div>
-            </div>
+        <!-- Tabs Footer -->
+        <div class="tabs">
+            <div class="tab" onclick="switchTab('dashboard')" id="btn-dashboard">儀表板</div>
+            <div class="tab inactive" onclick="switchTab('inbound')" id="btn-inbound">入庫單</div>
+            <div class="tab inactive" onclick="switchTab('outbound')" id="btn-outbound">出庫單</div>
+            <div class="tab inactive" onclick="alert('進階功能：付費版解鎖')">參數設定 🔒</div>
         </div>
-
-        <div class="card-wrapper">
-            <div class="card-name">9. 深岩石灰 (穩重)</div>
-            <div class="card style-9">
-                <div class="line"></div>
-                <div>
-                    <h3>天安中醫</h3>
-                    <small style="color:#2ed573">Health & Balance</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="card-name">10. 磨砂透明 (特殊材質)</div>
-            <div class="card style-10">
-                <div class="content">
-                    <div class="logo">TIAN AN</div>
-                    <div style="font-size:10px; letter-spacing:2px;">TRANSPARENT CARD</div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <script>
+        // Mock Data
+        const db = {
+            'A-001': { name: '鍍鋅鋼板', spec: '2mm x 100cm', safe: 500, stock: 1200 },
+            'B-105': { name: '工業用螺絲', spec: 'M5 x 20mm', safe: 10000, stock: 25000 },
+            'C-099': { name: '防護手套', spec: 'L Size', safe: 200, stock: 50 }, // Low
+            'D-302': { name: '切削油', spec: '50L 桶裝', safe: 10, stock: 15 },
+            'E-001': { name: '包裝紙箱', spec: '50x50x50', safe: 100, stock: 98 } // Low
+        };
+
+        function renderTable() {
+            const tbody = document.getElementById('inventory-table');
+            tbody.innerHTML = '';
+            let alertCount = 0;
+            let totalItems = 0;
+
+            for (const [sku, item] of Object.entries(db)) {
+                totalItems++;
+                const isLow = item.stock < item.safe;
+                if (isLow) alertCount++;
+                
+                const statusHtml = isLow 
+                    ? `<span class="status-low">補貨中</span>` 
+                    : `<span class="status-ok">正常</span>`;
+                
+                const stockStyle = isLow ? 'color:red; font-weight:bold;' : '';
+
+                const row = `
+                    <tr>
+                        <td>${sku}</td>
+                        <td>${item.name}</td>
+                        <td>${item.spec}</td>
+                        <td>${item.safe}</td>
+                        <td style="${stockStyle}">${item.stock}</td>
+                        <td>${statusHtml}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            }
+            
+            document.getElementById('val-items').innerText = totalItems;
+            document.getElementById('val-alert').innerText = alertCount;
+        }
+
+        function switchTab(tabName) {
+            // Hide all
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.add('inactive'));
+            
+            // Show target
+            document.getElementById('tab-' + tabName).classList.add('active');
+            document.getElementById('btn-' + tabName).classList.remove('inactive');
+            
+            // Update formula bar mock
+            const formulas = {
+                'dashboard': '=SUM(E2:E100)',
+                'inbound': '=IF(B2>0, "Valid", "Error")',
+                'outbound': '=VLOOKUP(A2, Inventory!A:D, 4, 0)'
+            };
+            document.getElementById('formula-display').value = formulas[tabName] || '';
+            
+            if(tabName === 'dashboard') renderTable();
+        }
+
+        function handleInbound() {
+            const sku = document.getElementById('in-sku').value;
+            const qty = parseInt(document.getElementById('in-qty').value);
+            if (!qty || qty <= 0) return alert('請輸入有效數量');
+            
+            db[sku].stock += qty;
+            document.getElementById('val-in').innerText = parseInt(document.getElementById('val-in').innerText) + qty;
+            
+            alert(`✅ 成功入庫！\n料號：${sku}\n數量：${qty}\n目前庫存：${db[sku].stock}`);
+            document.getElementById('in-qty').value = '';
+        }
+
+        function handleOutbound() {
+            const sku = document.getElementById('out-sku').value;
+            const qty = parseInt(document.getElementById('out-qty').value);
+            if (!qty || qty <= 0) return alert('請輸入有效數量');
+            
+            if (db[sku].stock < qty) return alert('❌ 庫存不足！無法出庫。');
+
+            db[sku].stock -= qty;
+            document.getElementById('val-out').innerText = parseInt(document.getElementById('val-out').innerText) + qty;
+            
+            alert(`✅ 成功出庫！\n料號：${sku}\n數量：${qty}\n目前庫存：${db[sku].stock}`);
+            document.getElementById('out-qty').value = '';
+        }
+
+        // Initial render
+        renderTable();
+    </script>
 </body>
 </html>
