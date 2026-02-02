@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天安中醫 - 10款名片提案</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <style>
+        body { background: #333; font-family: 'Noto Sans TC', sans-serif; padding: 40px; color: #fff; }
+        h1 { text-align: center; margin-bottom: 40px; letter-spacing: 5px; color: #D4AF37; }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card-wrapper { text-align: center; }
+        .card-name { margin-bottom: 10px; color: #aaa; font-size: 14px; }
+
+        .card {
+            width: 320px; height: 192px; /* 90x54 ratio */
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            background: white;
+            color: #333;
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: scale(1.02); z-index: 10; }
+        
+        .card.vertical { width: 192px; height: 320px; }
+
+        /* --- STYLES --- */
+
+        /* 1. Modern Zen (Original Refined) */
+        .style-1 { background: #FDFBF7; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 5px solid #2C5F2D; }
+        .style-1 .logo { font-family: 'Noto Serif TC'; font-size: 32px; color: #2C5F2D; letter-spacing: 5px; }
+        .style-1 .sub { color: #977B3F; font-size: 10px; letter-spacing: 2px; }
+
+        /* 2. Dark Luxury (Black & Gold) */
+        .style-2 { background: #1a1a1a; color: #D4AF37; display: flex; justify-content: space-between; padding: 20px; box-sizing: border-box; }
+        .style-2::before { content:''; position:absolute; top:0; right:0; width: 100px; height: 100%; background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.1)); }
+        .style-2 .logo { font-size: 24px; border: 2px solid #D4AF37; padding: 5px 10px; display: inline-block; }
+        .style-2 .name { margin-top: auto; font-size: 18px; }
+
+        /* 3. Traditional Ink (Calligraphy) */
+        .style-3 { background: url('https://www.transparenttextures.com/patterns/rice-paper.png'), #fff; }
+        .style-3 .ink { font-family: 'Ma Shan Zheng', cursive; font-size: 60px; position: absolute; right: 20px; bottom: 20px; opacity: 0.8; color: #000; }
+        .style-3 .info { padding: 20px; font-family: 'Noto Serif TC'; border-left: 3px solid #cc0000; height: 60%; margin-top: 20px; margin-left: 20px; }
+
+        /* 4. Professional Medical (Clean Blue/Teal) */
+        .style-4 { background: white; border-top: 10px solid #008080; padding: 25px; }
+        .style-4 .logo { color: #008080; font-weight: bold; font-size: 22px; display: flex; align-items: center; gap: 10px; }
+        .style-4 .logo::before { content: '+'; background: #008080; color: white; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .style-4 .details { font-size: 10px; color: #555; margin-top: 20px; line-height: 1.6; }
+
+        /* 5. Vertical Red Seal (Vertical) */
+        .style-5 { background: #f4f4f4; writing-mode: vertical-rl; padding: 20px; align-items: center; display: flex; }
+        .style-5 .seal { border: 2px solid #b22222; color: #b22222; padding: 5px; font-family: 'Ma Shan Zheng'; border-radius: 4px; font-size: 18px; margin-bottom: 20px; }
+        .style-5 .name { font-size: 24px; letter-spacing: 5px; color: #333; font-family: 'Noto Serif TC'; }
+
+        /* 6. Kraft Paper (Organic) */
+        .style-6 { background: #d2b48c; color: #3e2723; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .style-6 .border { border: 2px dashed #3e2723; width: 90%; height: 85%; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .style-6 .icon { font-size: 30px; margin-bottom: 10px; }
+
+        /* 7. Geometric Modern */
+        .style-7 { background: #fff; }
+        .style-7 .shape { position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: #2C5F2D; border-radius: 50%; }
+        .style-7 .content { position: absolute; bottom: 20px; left: 20px; }
+        .style-7 .name { font-weight: bold; font-size: 20px; color: #2C5F2D; }
+
+        /* 8. Minimalist Typographic */
+        .style-8 { background: #fff; display: flex; justify-content: center; align-items: center; }
+        .style-8 .big-text { font-size: 80px; font-weight: 900; color: #f0f0f0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; text-align: center; }
+        .style-8 .real-text { position: relative; z-index: 2; font-weight: bold; font-size: 24px; letter-spacing: 10px; }
+
+        /* 9. Dark Slate (Stone texture) */
+        .style-9 { background: #2f3542; color: #fff; display: flex; align-items: center; padding-left: 40px; }
+        .style-9 .line { height: 60px; width: 2px; background: #2ed573; margin-right: 20px; }
+        .style-9 h3 { margin: 0; font-weight: 300; letter-spacing: 2px; }
+
+        /* 10. Translucent / Frosted (Simulated) */
+        .style-10 { background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4)); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); display: flex; justify-content: center; align-items: center; }
+        .style-10 .content { text-align: center; color: #000; }
+        .style-10 .logo { font-size: 30px; font-weight: bold; opacity: 0.6; }
+
+        /* 12. The Redemption (Classic Painting) */
+        .style-12 {
+            background: #f0f5f0;
+            background-image: url('https://img.freepik.com/free-vector/hand-drawn-bamboo-background_23-2149567332.jpg'); 
+            /* Note: Using a placeholder URL that looks like chinese painting */
+            background-size: cover;
+            background-position: left;
+            display: flex;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .style-12::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.85); /* Fade the image */
+        }
+        .style-12 .content-layer {
+            position: relative; z-index: 2; width: 100%; height: 100%;
+            display: flex; justify-content: space-between; padding: 25px; box-sizing: border-box;
+        }
+        .style-12 .left {
+            display: flex; flex-direction: column; justify-content: center;
+            border-right: 1px solid #88a; 
+            padding-right: 20px;
+            color: #2f4f2f; /* Sage Green */
+        }
+        .style-12 .title {
+            font-family: 'Ma Shan Zheng'; font-size: 36px; writing-mode: vertical-rl;
+            letter-spacing: 5px; margin-right: 10px;
+        }
+        .style-12 .sub-title {
+            font-family: 'Noto Serif TC'; font-size: 10px; writing-mode: vertical-rl;
+            letter-spacing: 2px; color: #556b2f;
+        }
+        
+        .style-12 .right {
+            flex-grow: 1; padding-left: 20px;
+            display: flex; flex-direction: column; justify-content: center;
+            font-family: 'Noto Serif TC'; color: #333;
+        }
+        .style-12 .doc-name { font-size: 20px; font-weight: bold; margin-bottom: 5px; color: #2f4f2f; }
+        .style-12 .doc-title { font-size: 10px; color: #666; margin-bottom: 20px; }
+        .style-12 .info-row { font-size: 9px; margin-bottom: 5px; display: flex; align-items: center; color: #555; }
+        .style-12 .stamp-red {
+            position: absolute; bottom: 20px; right: 20px;
+            width: 30px; height: 30px; border: 2px solid #a00; color: #a00;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-family: 'Ma Shan Zheng';
+        }
+
+    </style>
+</head>
+<body>
+
+    <div style="text-align:center; margin-bottom:40px;">
+        <a href="Premium_Inventory.xlsx" style="background:#217346; color:white; padding:15px 30px; text-decoration:none; font-weight:bold; border-radius:5px; font-size:20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            📥 下載【旗艦版】進銷存 Excel (Premium_Inventory.xlsx)
+        </a>
+    </div>
+
+    <h1>天安中醫 - 10款風格提案 (+2 雪恥版)</h1>
+
+    <div class="gallery">
+        
+        <!-- The Redemption -->
+        <div class="card-wrapper" style="grid-column: 1 / -1;">
+            <div class="card-name" style="color:#2f4f2f; font-size:18px;">★ 12. 漢方竹韻 (雪恥之作)</div>
+            <div class="card style-12">
+                <div class="content-layer">
+                    <div class="left">
+                        <div class="sub-title">Classic TCM Clinic</div>
+                        <div class="title">天安中醫</div>
+                    </div>
+                    <div class="right">
+                        <div class="doc-name">李 董 <span style="font-size:12px;font-weight:normal">醫師</span></div>
+                        <div class="doc-title">院長 / 內科調理專家</div>
+                        
+                        <div class="info-row">📞 02-2345-6789</div>
+                        <div class="info-row">📍 台北市信義區...</div>
+                        <div class="info-row">🕒 09:00 - 21:00</div>
+                    </div>
+                    <div class="stamp-red">安</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" style="opacity: 0.5;">
+            <div class="card-name">★ 11. 旗艦隱藏版 (新中式灰階)</div>
+            <div class="card-name">1. 現代禪風 (經典款)</div>
+            <div class="card style-1">
+                <div class="logo">天安中醫</div>
+                <div class="sub">TIAN AN CLINIC</div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">2. 黑金奢華 (高端客群)</div>
+            <div class="card style-2">
+                <div class="logo">天安</div>
+                <div class="name">李董<br><span style="font-size:10px">院長</span></div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">3. 水墨書法 (傳統底蘊)</div>
+            <div class="card style-3">
+                <div class="ink">天安</div>
+                <div class="info">
+                    <strong>李 董</strong><br>
+                    <small>中醫師</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">4. 專業醫療 (信任感)</div>
+            <div class="card style-4">
+                <div class="logo">天安診所</div>
+                <div class="details">
+                    內科調理 · 健康減重<br>
+                    02-2345-6789
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">5. 復古直式 (文人氣息)</div>
+            <div class="card vertical style-5">
+                <div class="seal">天安</div>
+                <div class="name">李董 醫師</div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">6. 牛皮紙質 (漢方草本)</div>
+            <div class="card style-6">
+                <div class="border">
+                    <div class="icon">🌿</div>
+                    <div style="font-weight:bold; letter-spacing:3px;">天安漢方</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">7. 幾何現代 (年輕化)</div>
+            <div class="card style-7">
+                <div class="shape"></div>
+                <div class="content">
+                    <div class="name">TIAN AN</div>
+                    <div style="color:#aaa; font-size:12px;">TCM Clinic</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">8. 極簡留白 (設計師款)</div>
+            <div class="card style-8">
+                <div class="big-text">TIAN</div>
+                <div class="real-text">天安</div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">9. 深岩石灰 (穩重)</div>
+            <div class="card style-9">
+                <div class="line"></div>
+                <div>
+                    <h3>天安中醫</h3>
+                    <small style="color:#2ed573">Health & Balance</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="card-name">10. 磨砂透明 (特殊材質)</div>
+            <div class="card style-10">
+                <div class="content">
+                    <div class="logo">TIAN AN</div>
+                    <div style="font-size:10px; letter-spacing:2px;">TRANSPARENT CARD</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
